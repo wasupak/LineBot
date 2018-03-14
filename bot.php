@@ -34,13 +34,13 @@ if (!is_null($events['events'])) {
           echo "ping ".$parameter."<br/>";
           $reply=exec("ping -n 1 ".$parameter);
         } else {
-          $reply="Error";
+          $reply="Error command";
         }
         break;
       default :
-        $reply="คุณไม่สังกัด Shop นี้🙄";
+        $reply="คุณไม่สังกัด Shop นี้ 🙄";
     }
-    $messages = ['type' => 'text','text' => $text];			
+    $messages = ['type' => 'text','text' => $reply];			
   
     // Make a POST Request to Messaging API to reply to sender			
     $url = 'https://api.line.me/v2/bot/message/reply';			
