@@ -16,7 +16,7 @@ if (!is_null($events['events'])) {
     $replyToken = $event['replyToken'];			
     // Build message to reply back			
     if($text=='keyword') {
-      $messages = ['type' => 'text','text' => "ตอบตาม keyword \uDBC0\uDC84"];			
+      $messages = ['type' => 'text','text' => "ตอบตาม keyword \uDBC0\uDC84 0x100078 \0x100078"];			
     } else {
       $messages = ['type' => 'text','text' => $text];			
     }
