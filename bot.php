@@ -14,13 +14,34 @@ if (!is_null($events['events'])) {
     $text = $event['message']['text'];			
     // Get replyToken			
     $replyToken = $event['replyToken'];			
-    // Build message to reply back			
-    if($text=='keyword') {
-      $messages = ['type' => 'text','text' => "ตอบตาม keyword \uDBC0\uDC84 0x100078 \0x100078"];			
+    // Build message to reply back
+    if(strpos($text, ' ') !== false) {
+      //Have parameter
+      list($command,$parameter) = explode(" ", $text,2);
     } else {
-      $messages = ['type' => 'text','text' => $text];			
+      //No parameter
+      $command=$text;
+      $parameter="";
     }
-   
+    $reply="";
+    switch($command) {
+      case "test";
+      case "try";
+        $reply="เอาจริงดิ";
+        break;
+      case "ping" :
+        if($parameter!=="") {
+          echo "ping ".$parameter."<br/>";
+          $reply=exec("ping -n 1 ".$parameter);
+        } else {
+          $reply="Error";
+        }
+        break;
+      default :
+        $reply="คุณไม่สังกัด Shop นี้🙄";
+    }
+    $messages = ['type' => 'text','text' => $text];			
+  
     // Make a POST Request to Messaging API to reply to sender			
     $url = 'https://api.line.me/v2/bot/message/reply';			
     $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
