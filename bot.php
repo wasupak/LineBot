@@ -40,10 +40,11 @@ if (!is_null($events['events'])) {
       default :
         $reply="คุณไม่สังกัด Shop นี้ 🙄";
     }
-    $uid=$event['source']['userId'];
+    //$uid=$event['source']['userId'];
+      $uid="TEST";
       //$messages[]=array();
       $messages[]=array('type' => 'text','text' => $uid);
-    $messages[]=array('type' => 'text','text' => $reply);
+      $messages[]=array('type' => 'text','text' => $reply);
     //$messages = ['type' => 'text','text' => $uid];
     //$messages = ['type' => 'text','text' => $reply];
   
