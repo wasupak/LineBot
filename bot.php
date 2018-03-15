@@ -40,7 +40,8 @@ if (!is_null($events['events'])) {
       default :
         $reply="คุณไม่สังกัด Shop นี้ 🙄";
     }
-    $messages = ['type' => 'text','text' => $event['source']['userId'],'type' => 'text','text' => $reply];			
+    $uid=$event['source']['userId'];
+    $messages = [{'type' => 'text','text' => $uid},{'type' => 'text','text' => $reply}];
   
     // Make a POST Request to Messaging API to reply to sender			
     $url = 'https://api.line.me/v2/bot/message/reply';			
