@@ -42,8 +42,8 @@ if (!is_null($events['events'])) {
     }
     $uid=$event['source']['userId'];
       $messages[]=array();
-      $messages[]=array('type' => 'text','text' => $uid);
-    $messages[]=array('type' => 'text','text' => $reply);
+      $messages[0]=array('type' => 'text','text' => $uid);
+    $messages[1]=array('type' => 'text','text' => $reply);
    // $messages = {['type' => 'text','text' => $uid],['type' => 'text','text' => $reply]};
      //$messages = ['type' => 'text','text' => $reply];
   
