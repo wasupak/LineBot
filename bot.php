@@ -1,4 +1,5 @@
 <?php
+include_once("func_bot.php");
 $access_token = 'Ip6MJjyoP0dcHir4z+9KEL3CHaTihlfZRplDRvhZ8UJm0ujD81yEnODHWL9BAEN6PuR2zmB4aJ4R/fjLU+eykzyjda5iSmB09na+iOXd3CO930zdBJj2TxqelnJjWQTggWVVhvdL3Oq/G5mtlnIHXQdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -6,47 +7,28 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {	
-// Loop through each event	
-  foreach ($events['events'] as $event) {		
-  // Reply only when message sent is in 'text' format		
-    if ($event['type'] == 'message' && $event['message']['type'] == 'text') {			
-    // Get text sent			
-    $text = $event['message']['text'];			
-    // Get replyToken			
-    $replyToken = $event['replyToken'];			
-    // Build message to reply back
-    if(strpos($text, ' ') !== false) {
-      //Have parameter
-      list($command,$parameter) = explode(" ", $text,2);
-    } else {
-      //No parameter
-      $command=$text;
-      $parameter="";
-    }
-    $reply="";
-    switch($command) {
-      case "test";
-      case "try";
-        $reply="เอาจริงดิ";
+//Validate User
+    $uid=$event['source']['userId'];
+    switch($event['message']['type']) {
+      case "text" :
+        echo "Process message<br/>";
+        // Get text sent
+        $text = $event['message']['text'];			
+        $reply=responseText($text);
         break;
-      case "ping" :
-        if($parameter!=="") {
-          echo "ping ".$parameter."<br/>";
-          $reply=exec("ping -n 1 ".$parameter);
-        } else {
-          $reply="Error command";
-        }
+      case "location" :
+        echo "Process location<br/>";
+        $latitude = $event['message']['latitude'];
+        $longitude = $event['message']['longitude'];
+        $reply=responseLocation($latitude,$longitude);
         break;
       default :
-        $reply="คุณไม่สังกัด Shop นี้ 🙄";
+        echo "Unsupport event type";
     }
-    $uid=$event['source']['userId'];
-    //$uid="TEST";
-      //$messages[]=array();
+    $replyToken = $event['replyToken'];	
+  
     $messages[]=array('type' => 'text','text' => $uid);
     $messages[]=array('type' => 'text','text' => $reply);
-    //$messages = ['type' => 'text','text' => $uid];
-    //$messages = ['type' => 'text','text' => $reply];
   
     // Make a POST Request to Messaging API to reply to sender			
     $url = 'https://api.line.me/v2/bot/message/reply';			
