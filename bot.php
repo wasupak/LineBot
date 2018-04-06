@@ -1,5 +1,5 @@
 <?php
-$access_token = 'Ip6MJjyoP0dcHir4z+9KEL3CHaTihlfZRplDRvhZ8UJm0ujD81yEnODHWL9BAEN6PuR2zmB4aJ4R/fjLU+eykzyjda5iSmB09na+iOXd3CO930zdBJj2TxqelnJjWQTggWVVhvdL3Oq/G5mtlnIHXQdB04t89/1O/w1cDnyilFU=';
+$access_token = '';
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
